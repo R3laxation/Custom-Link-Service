@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Login = () => {
+export const Registration: React.FC = () => {
     return (
         <div>
 
