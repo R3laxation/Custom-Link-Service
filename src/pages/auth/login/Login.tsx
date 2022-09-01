@@ -1,25 +1,20 @@
 import React from 'react';
-import {Typography, TextField, Button} from "@mui/material";
-
-import styles from './Login.module.scss';
-import {useForm, Controller, SubmitHandler, useFormState} from 'react-hook-form';
+import {Button, TextField, Typography} from "@mui/material";
+import {Controller, SubmitHandler, useForm, useFormState} from 'react-hook-form';
 import {loginValidation, passwordValidation} from "./validation";
-
-
-interface ILoginForm {
-    login: string
-    password: string
-}
+import styles from './Login.module.scss';
+import {useAppDispatch} from "../../../bll/store";
+import {setIsLoginTC} from "../../../bll/slices/appSlice";
 
 export const Login: React.FC = () => {
 
-    const {handleSubmit, control} = useForm<ILoginForm>();
+    const {handleSubmit, control} = useForm<IAuthForm>();
     const {errors} = useFormState({control});
+    const dispatch = useAppDispatch();
 
-    const onSubmit: SubmitHandler<ILoginForm> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<IAuthForm> = (data) => {
+        dispatch(setIsLoginTC(data))
     }
-
 
     return (
         <div className={styles.loginPage}>
@@ -61,3 +56,8 @@ export const Login: React.FC = () => {
         </div>
     );
 };
+
+export interface IAuthForm {
+    login: string
+    password: string
+}
