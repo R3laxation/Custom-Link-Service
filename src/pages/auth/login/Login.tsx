@@ -14,6 +14,7 @@ export const Login: React.FC = () => {
 
     const onSubmit: SubmitHandler<IAuthForm> = (data) => {
         dispatch(setIsLoginTC(data))
+        console.log(data)
     }
 
     return (

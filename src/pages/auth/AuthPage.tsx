@@ -11,6 +11,7 @@ export const AuthPage: React.FC = () => {
 
     const isRegistered = useSelector(selectIsRegistered);
 
+
     return (
         <div className={styles.authPage} style={{backgroundImage: `url(${img})`}}>
             {

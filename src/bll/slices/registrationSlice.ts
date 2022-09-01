@@ -1,12 +1,15 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IAuthForm} from "../../pages/auth/login/Login";
-import { setIsLoading } from "./appSlice";
+import {setIsLoading} from "./appSlice";
+import {auth} from "../../services/api";
 
 
 export const setRegistration = createAsyncThunk('registration/setIsRegistered',
     async (data: IAuthForm, {dispatch}) => {
         try {
             dispatch(setIsLoading({loading: true}));
+            const res = await auth.register(data);
+            dispatch(setIsRegistered({isRegistered: true}));
         } catch (e) {
 
         } finally {
@@ -19,10 +22,15 @@ const slice = createSlice({
     initialState: {
         isRegistered: false,
     } as IStateType,
-    reducers: {}
+    reducers: {
+        setIsRegistered(state, action: PayloadAction<{ isRegistered: boolean }>) {
+            state.isRegistered = action.payload.isRegistered;
+        }
+    }
 })
 
 export const registrationSlice = slice.reducer;
+export const {setIsRegistered} = slice.actions;
 
 interface IStateType {
     isRegistered: boolean
